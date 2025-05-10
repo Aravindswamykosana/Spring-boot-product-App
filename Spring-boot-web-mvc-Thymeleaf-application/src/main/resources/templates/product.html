@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add Product</title>
+	<!-- Link to Bootstrap CSS (CDN) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		/* Custom styles to center the form */
+		.container {
+			max-width: 500px;
+			margin-top: 50px;
+		}
+
+		.form-container {
+			padding: 30px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			background-color: grey;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Main container to center the form -->
+	<div class="container">
+		<div class="form-container">
+			<h2 class="text-center">Add New Product</h2>
+			<!-- Show message if exists -->
+			<div th:if="${msg}" class="alert alert-info" th:text="${msg}"></div>
+			<!-- Product Form (with Thymeleaf form binding) -->
+			<form th:action="@{/addproduct}" th:object="${product}" method="post">
+				<input type="hidden" th:field="*{id}"/>
+				<!-- Product Name -->
+				<div class="mb-3">
+					<label for="prodName" class="form-label">Product Name</label>
+					<input type="text" class="form-control" id="prodName" th:field="*{prodName}"  />
+					<div th:if="${#fields.hasErrors('prodName')}" th:errors="*{prodName}" class="text-danger"></div>
+				</div>
+
+				<!-- Product Price -->
+				<div class="mb-3">
+					<label for="price" class="form-label">Price</label>
+					<input type="number" class="form-control" id="price" th:field="*{price}"  />
+					<div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></div>
+				</div>
+
+				<!-- Product Quantity -->
+				<div class="mb-3">
+					<label for="quantity" class="form-label">Quantity</label>
+					<input type="number" class="form-control" id="quantity" th:field="*{quantity}" />
+					<div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="text-danger"></div>
+				</div>
+
+				<!-- Submit Button -->
+				<div class="d-grid gap-2">
+					<button type="submit" class="btn btn-primary">Add Product</button>
+				</div>
+			</form>
+
+			<!-- Back Link -->
+			<div class="text-center mt-3">
+				<a th:href="@{/getprod}" class="btn btn-secondary">Back to Products List</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Link to Bootstrap JS and Popper.js for responsive features (Optional) -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
